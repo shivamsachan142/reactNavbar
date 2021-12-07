@@ -1,24 +1,36 @@
-import React from 'react';
 
+import React, { useState } from "react";
+import "react-pivottable/pivottable.css";
+import PivotTableUI from "react-pivottable/PivotTableUI";
+import TableRenderers from "react-pivottable/TableRenderers";
+import Plot from 'react-plotly.js';
+import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
+const PlotlyRenderers = createPlotlyRenderers(Plot);
 
-// var perf =require('./abc.html');
+// const response = await fetch('./sample.csv');
+var x = require('./csvjson.json');
 
-// class fun_bcin_na extends React.Component {
-   
-//       return (
-//          <iframe src={perf }></iframe>   /* like this */
-//       );
-   
-// }
-// export default fun_bcin_na;
-
-
-const fun_bcin_na = () => {
+const Fun_bcin_na = () => {
+    const [opts, setOpts] = useState({});
     return(
-            // <iframe src={perf }></iframe>   /* like this */
-            <h1>DANK HOURS</h1>
-            
+
+        <div id="container">
+            <br></br>
+            <PivotTableUI
+                data={x}
+                onChange={(e) => {
+                    setOpts(e);
+                    console.log(e);
+                }}
+                renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
+                {...opts}
+            />
+        </div>
     )
+    
 }
 
-export default fun_bcin_na;
+
+
+export default Fun_bcin_na;
+
